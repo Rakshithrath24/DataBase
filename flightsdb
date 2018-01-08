@@ -1,0 +1,184 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.1.53-community
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema demo
+--
+
+CREATE DATABASE IF NOT EXISTS demo;
+USE demo;
+
+--
+-- Definition of table `campusminds`
+--
+
+DROP TABLE IF EXISTS `campusminds`;
+CREATE TABLE `campusminds` (
+  `MID` varchar(255) NOT NULL,
+  `EMAIL` varchar(255) DEFAULT NULL,
+  `NAME` varchar(255) DEFAULT NULL,
+  `details_FK` int(11) DEFAULT NULL,
+  `leads_FK` int(11) DEFAULT NULL,
+  PRIMARY KEY (`MID`),
+  KEY `FK2FE740C28D6A0AD9` (`details_FK`),
+  KEY `FK2FE740C2E484F28D` (`leads_FK`),
+  CONSTRAINT `FK2FE740C28D6A0AD9` FOREIGN KEY (`details_FK`) REFERENCES `camusmindsdetails` (`C_id`),
+  CONSTRAINT `FK2FE740C2E484F28D` FOREIGN KEY (`leads_FK`) REFERENCES `leads` (`L_Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `campusminds`
+--
+
+/*!40000 ALTER TABLE `campusminds` DISABLE KEYS */;
+INSERT INTO `campusminds` (`MID`,`EMAIL`,`NAME`,`details_FK`,`leads_FK`) VALUES 
+ ('M104','rak@gmail.com','RKR',1,1),
+ ('M105','ram@gmail.com','RAM',2,1);
+/*!40000 ALTER TABLE `campusminds` ENABLE KEYS */;
+
+
+--
+-- Definition of table `camusmindsdetails`
+--
+
+DROP TABLE IF EXISTS `camusmindsdetails`;
+CREATE TABLE `camusmindsdetails` (
+  `C_id` int(11) NOT NULL AUTO_INCREMENT,
+  `city` varchar(255) DEFAULT NULL,
+  `pincode` int(11) NOT NULL,
+  PRIMARY KEY (`C_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `camusmindsdetails`
+--
+
+/*!40000 ALTER TABLE `camusmindsdetails` DISABLE KEYS */;
+INSERT INTO `camusmindsdetails` (`C_id`,`city`,`pincode`) VALUES 
+ (1,'BENGALURU',560018),
+ (2,'Bangalore',560018);
+/*!40000 ALTER TABLE `camusmindsdetails` ENABLE KEYS */;
+
+
+--
+-- Definition of table `flights`
+--
+
+DROP TABLE IF EXISTS `flights`;
+CREATE TABLE `flights` (
+  `id` int(11) DEFAULT NULL,
+  `code` varchar(10) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `departuredate` date DEFAULT NULL,
+  `origin` varchar(10) DEFAULT NULL,
+  `destination` varchar(10) DEFAULT NULL,
+  `emptyseats` int(11) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
+  `totalseats` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `flights`
+--
+
+/*!40000 ALTER TABLE `flights` DISABLE KEYS */;
+INSERT INTO `flights` (`id`,`code`,`price`,`departuredate`,`origin`,`destination`,`emptyseats`,`type`,`totalseats`) VALUES 
+ (1,'ER38sd',400,'2016-03-20','MUA','SFO',0,'Boeing 737',150),
+ (2,'ER45if',345.99,'2016-02-11','MUA','LAX',52,'Boeing 777',300);
+/*!40000 ALTER TABLE `flights` ENABLE KEYS */;
+
+
+--
+-- Definition of table `leads`
+--
+
+DROP TABLE IF EXISTS `leads`;
+CREATE TABLE `leads` (
+  `L_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Lmid` varchar(255) DEFAULT NULL,
+  `Lname` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`L_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `leads`
+--
+
+/*!40000 ALTER TABLE `leads` DISABLE KEYS */;
+INSERT INTO `leads` (`L_Id`,`Lmid`,`Lname`) VALUES 
+ (1,'M111','Prem');
+/*!40000 ALTER TABLE `leads` ENABLE KEYS */;
+
+
+--
+-- Definition of table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
+  `id` int(11) DEFAULT NULL,
+  `message` varchar(20) DEFAULT NULL,
+  `author` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `message`
+--
+
+/*!40000 ALTER TABLE `message` DISABLE KEYS */;
+INSERT INTO `message` (`id`,`message`,`author`) VALUES 
+ (1,'Hello world','Ram'),
+ (2,'Hello','Rak'),
+ (3,'Hiiii','Raj'),
+ (0,'HELP','RKR'),
+ (4,'HELP','RKR');
+/*!40000 ALTER TABLE `message` ENABLE KEYS */;
+
+
+--
+-- Definition of table `student`
+--
+
+DROP TABLE IF EXISTS `student`;
+CREATE TABLE `student` (
+  `SID` int(11) NOT NULL,
+  `SDEPT` varchar(255) DEFAULT NULL,
+  `SNAME` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`SID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student`
+--
+
+/*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` (`SID`,`SDEPT`,`SNAME`) VALUES 
+ (10,'EAI','Ram'),
+ (100,'EAI','Ram'),
+ (123,'EAI','Rakshith'),
+ (10000,'EAI','Ram');
+/*!40000 ALTER TABLE `student` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
